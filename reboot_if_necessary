@@ -1,0 +1,15 @@
+---
+- name: Reboot the system if a reboot is required
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Check if reboot is required
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required
+
+    - name: Reboot the server
+      reboot:
+        reboot_timeout: 300
+      when: reboot_required.stat.exists
