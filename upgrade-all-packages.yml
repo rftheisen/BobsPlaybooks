@@ -1,0 +1,9 @@
+---
+- name: Upgrade all packages to their latest versions
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Upgrade all installed packages
+      apt:
+        upgrade: dist
