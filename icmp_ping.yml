@@ -1,0 +1,13 @@
+---
+- name: Perform ICMP ping on hosts
+  hosts: all
+  become: no  # No need for privilege escalation for ping command
+  tasks:
+    - name: Ping the host using ICMP
+      command: ping -c 4 {{ inventory_hostname }}
+      register: ping_result
+      ignore_errors: yes
+
+    - name: Display ping results
+      debug:
+        var: ping_result.stdout
